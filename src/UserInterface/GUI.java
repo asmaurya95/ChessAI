@@ -14,8 +14,7 @@ public class GUI extends JPanel{
     @Override
     // following method overrides 'paint' from javax.swing.JComponent
     public void paint(Graphics g){
-        g.setColor(Color.RED);
-        g.fillRect(10,10,20,20);
+        
     }
     
 }
