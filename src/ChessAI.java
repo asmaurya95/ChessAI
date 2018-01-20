@@ -3,7 +3,7 @@
  * @author ashutosh maurya
  */
 
-import UserInterface.GUI;   //API for adding a GUI to ChessAI
+import UserInterface.GUI;   //API for adding a graphical user interface to ChessAI
 import javax.swing.*;       //Java Swing Library
 
 public class ChessAI {
