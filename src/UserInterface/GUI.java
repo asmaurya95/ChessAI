@@ -4,11 +4,18 @@
  * and open the template in the editor.
  */
 package UserInterface;
-
+import java.awt.*;
+import javax.swing.*;
 /**
  *
  * @author ashutosh
  */
-public class GUI {
+public class GUI extends JPanel{
+    @Override
+    // following method overrides 'paint' from javax.swing.JComponent
+    public void paint(Graphics g){
+        g.setColor(Color.RED);
+        g.fillRect(10,10,20,20);
+    }
     
 }
