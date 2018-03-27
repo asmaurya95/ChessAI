@@ -90,7 +90,41 @@ public class ChessAI {
     }
 
     public static String possibleMovesKnight(int i) {
-        return "";
+        String list = "", oldPiece;
+        int r = i / 8, c = i % 8;
+        for (int j = -1; j <= 1; j += 2) {
+            for (int k = -1; k <= 1; k += 2) {
+                try {
+                    if (" ".equals(chessBoard[r + j][c + k * 2])
+                            || Character.isLowerCase(chessBoard[r + j][c + k * 2].charAt(0))) {
+                        oldPiece = chessBoard[r + j][c + k * 2];
+                        chessBoard[r][c] = " ";
+                        chessBoard[r + j][c + k * 2] = "K";
+                        if (isKingSafe()) {
+                            list = list + r + c + (r + j) + (c + k * 2) + oldPiece;
+                        }
+                        chessBoard[r][c] = "K";
+                        chessBoard[r + j][c + k * 2] = oldPiece;
+                    }
+                } catch (Exception e) {
+                }
+                try {
+                    if (" ".equals(chessBoard[r + j * 2][c + k])
+                            || Character.isLowerCase(chessBoard[r + j * 2][c + k].charAt(0))) {
+                        oldPiece = chessBoard[r + j * 2][c + k];
+                        chessBoard[r][c] = " ";
+                        chessBoard[r + j * 2][c + k] = "K";
+                        if (isKingSafe()) {
+                            list = list + r + c + (r + j * 2) + (c + k) + oldPiece;
+                        }
+                        chessBoard[r][c] = "K";
+                        chessBoard[r + j * 2][c + k] = oldPiece;
+                    }
+                } catch (Exception e) {
+                }
+            }
+        }
+        return list;
     }
 
     public static String possibleMovesRook(int i) {
