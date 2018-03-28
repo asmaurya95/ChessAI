@@ -53,7 +53,7 @@ public class ChessAI {
         JFrame f = new JFrame("ChessAI");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.add(ui);
-        f.setSize(640, 480);
+        f.setSize(500, 500);
         f.setVisible(true);
         System.out.println(possibleMoves());
     }

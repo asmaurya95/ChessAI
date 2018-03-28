@@ -26,7 +26,7 @@ public class GUI extends JPanel implements MouseListener, MouseMotionListener {
             g.fillRect(((i + 1) % 8 - ((i + 1) / 8) % 2) * squareSize, ((i + 1) / 8) * squareSize, squareSize, squareSize);
         }
         Image chessPiecesImage;
-        URL url = getClass().getResource("ChessPieces.png");
+        URL url = getClass().getResource("res/ChessPieces.png");
         chessPiecesImage = new ImageIcon(url).getImage();
         for (int i = 0; i < 64; i++) {
             int j = -1, k = -1;
