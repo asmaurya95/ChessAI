@@ -56,8 +56,80 @@ public class ChessAI {
         f.setSize(500, 500);
         f.setVisible(true);
         System.out.println(possibleMoves());
+        System.out.println(alphaBeta(globalDepth, 1000000, -1000000, "", 0));
+        makeMove("7655 ");
+        undoMove("7655 ");
+        for (int i=0;i<8;i++) {
+            System.out.println(Arrays.toString(chessBoard[i]));
+        }
     }
-
+    public static String alphaBeta(int depth, int beta, int alpha, String move, int player) {
+        //return in the form of 1234b##########
+        //String list=posibleMoves();
+        String list="1";
+        if (depth==0 || list.length()==0) {return move+(rating()*(player*2-1));}
+        list="";
+        System.out.print("How many moves are there: ");
+        Scanner sc=new Scanner(System.in);
+        int temp=sc.nextInt();
+        for (int i=0;i<temp;i++) {
+            list+="1111b";
+        }
+        //sort later
+        player=1-player;//either 1 or 0
+        for (int i=0;i<list.length();i+=5) {
+            makeMove(list.substring(i,i+5));
+            flipBoard();
+            String returnString=alphaBeta(depth-1, beta, alpha, list.substring(i,i+5), player);
+            int value=Integer.valueOf(returnString.substring(5));
+            flipBoard();
+            undoMove(list.substring(i,i+5));
+            if (player==0) {
+                if (value<=beta) {beta=value; if (depth==globalDepth) {move=returnString.substring(0,5);}}
+            } else {
+                if (value>alpha) {alpha=value; if (depth==globalDepth) {move=returnString.substring(0,5);}}
+            }
+            if (alpha>=beta) {
+                if (player==0) {return move+beta;} else {return move+alpha;}
+            }
+        }
+        if (player==0) {return move+beta;} else {return move+alpha;}
+    }
+    public static void flipBoard() {
+        
+    }
+    public static void makeMove(String move) {
+        /*public static void makeMove(String move) {
+            int xf,yf,xt,yt;
+            //x1,y1,x2,y2,captured piece
+            if (move.charAt(4)!='C' && move.charAt(4)!='P') {
+            {
+                xt=Character.getNumericValue(move.charAt(2));
+            }
+            yt=Character.getNumericValue(move.charAt(3));
+            xf=Character.getNumericValue(move.charAt(0));
+            yf=Character.getNumericValue(move.charAt(1));
+            }
+        }*/
+        if (move.charAt(4)!='P') {
+            chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))]=chessBoard[Character.getNumericValue(move.charAt(0))][Character.getNumericValue(move.charAt(1))];
+            chessBoard[Character.getNumericValue(move.charAt(0))][Character.getNumericValue(move.charAt(1))]=" ";
+        } else {
+            //if pawn promotion
+            chessBoard[1][Character.getNumericValue(move.charAt(0))]=" ";
+            chessBoard[0][Character.getNumericValue(move.charAt(1))]=String.valueOf(move.charAt(3));
+        }
+    }
+    public static void undoMove(String move) {
+        if (move.charAt(4)!='P') {
+            chessBoard[Character.getNumericValue(move.charAt(0))][Character.getNumericValue(move.charAt(1))]=chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))];
+            chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))]=String.valueOf(move.charAt(4));
+        } else {
+            //if pawn promotion
+            chessBoard[1][Character.getNumericValue(move.charAt(0))]="P";
+            chessBoard[0][Character.getNumericValue(move.charAt(1))]=String.valueOf(move.charAt(2));
+        }
+    }
 
     /*
     MOVE GENERATION
