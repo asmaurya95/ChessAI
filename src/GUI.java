@@ -106,6 +106,31 @@ public class GUI extends JPanel implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (e.getX()<8*squareSize &&e.getY()<8*squareSize) {
+            //if inside the board
+            x=e.getX();
+            y=e.getY();
+            if (e.getButton()==MouseEvent.BUTTON1) {
+                String dragMove;
+                if (y/squareSize==0 && y/squareSize==1 && "P".equals(ChessAI.chessBoard[mouseY/squareSize][mouseX/squareSize])) {
+                    //pawn promotion
+                    dragMove=""+x/squareSize+x/squareSize+ChessAI.chessBoard[newMouseY/squareSize][newMouseX/squareSize]+"QP";
+                } else {
+                    //regular move
+                    dragMove=""+y/squareSize+x/squareSize+y/squareSize+x/squareSize+ChessAI.chessBoard[newMouseY/squareSize][newMouseX/squareSize];
+                }
+                String userPosibilities=ChessAI.possibleMoves();
+                if (userPosibilities.replaceAll(dragMove, "").length()<userPosibilities.length()) {
+                    //if valid move
+                    ChessAI.makeMove(dragMove);
+                    ChessAI.flipBoard();
+                    ChessAI.makeMove(ChessAI.alphaBeta(ChessAI.globalDepth,1000000 ,-1000000,"", 0));
+                    ChessAI.flipBoard();
+                    repaint();
+                }
+            }
+            
+        }
     }
 
     @Override
