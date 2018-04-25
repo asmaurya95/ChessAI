@@ -6,14 +6,6 @@
  */
 public class Bishop {
 
-    public static String bishop() {
-        if (ChessAI.user.equals("X")) {
-            return "b";
-        } else {
-            return "B";
-        }
-    }
-
     public static String possibleMovesBishop(int i) {
         String list = "", oldPiece;
         int r = i / 8, c = i % 8;
@@ -24,22 +16,22 @@ public class Bishop {
                     while (" ".equals(ChessAI.chessBoard[r + temp * j][c + temp * k])) {
                         oldPiece = ChessAI.chessBoard[r + temp * j][c + temp * k];
                         ChessAI.chessBoard[r][c] = " ";
-                        ChessAI.chessBoard[r + temp * j][c + temp * k] = bishop();
+                        ChessAI.chessBoard[r + temp * j][c + temp * k] = "B";
                         if (King.isKingSafe()) {
                             list = list + r + c + (r + temp * j) + (c + temp * k) + oldPiece;
                         }
-                        ChessAI.chessBoard[r][c] = bishop();
+                        ChessAI.chessBoard[r][c] = "B";
                         ChessAI.chessBoard[r + temp * j][c + temp * k] = oldPiece;
                         temp++;
                     }
-                    if (ChessAI.isOpponent(ChessAI.chessBoard[r + temp * j][c + temp * k].charAt(0))) {
+                    if (Character.isLowerCase(ChessAI.chessBoard[r + temp * j][c + temp * k].charAt(0))) {
                         oldPiece = ChessAI.chessBoard[r + temp * j][c + temp * k];
                         ChessAI.chessBoard[r][c] = " ";
-                        ChessAI.chessBoard[r + temp * j][c + temp * k] = bishop();
+                        ChessAI.chessBoard[r + temp * j][c + temp * k] = "B";
                         if (King.isKingSafe()) {
                             list = list + r + c + (r + temp * j) + (c + temp * k) + oldPiece;
                         }
-                        ChessAI.chessBoard[r][c] = bishop();
+                        ChessAI.chessBoard[r][c] = "B";
                         ChessAI.chessBoard[r + temp * j][c + temp * k] = oldPiece;
 
                     }
@@ -50,13 +42,5 @@ public class Bishop {
             }
         }
         return list;
-    }
-
-    public static String opponentBishop() {
-        if (ChessAI.user.equals("X")) {
-            return "B";
-        } else {
-            return "b";
-        }
     }
 }
