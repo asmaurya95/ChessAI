@@ -40,7 +40,8 @@ public class ChessAI {
         {" ", " ", " ", " ", " ", " ", " ", " "},
         {"P", "P", "P", "P", "P", "P", "P", "P"},
         {"R", "K", "B", "Q", "A", "B", "K", "R"}};
-
+    
+    static int humanasWhite = -1;//1= Human as White 0=Black 
     public static void main(String[] args) throws IOException {
         // first get white king's location
         while (!"A".equals(chessBoard[kingPosC / 8][kingPosC % 8])) {
@@ -50,13 +51,21 @@ public class ChessAI {
         while (!"a".equals(chessBoard[kingPosL / 8][kingPosL % 8])) {
             kingPosL++;
         }
-        /*GUI ui = new GUI();
+        GUI ui = new GUI();
         JFrame f = new JFrame("ChessAI");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.add(ui);
         f.setSize(500, 500);
-        f.setVisible(true);*/
+        f.setVisible(true);
         System.out.println(possibleMoves());
+        Object[] option = {"Computer", "Human"};
+        humanasWhite = JOptionPane.showOptionDialog(null, "Who should play as White?", "ABC options", JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, option, option[1]);
+        if (humanasWhite == 0) {
+            makeMove(alphaBeta(globalDepth, 1000000, -1000000, "", 0));
+            flipBoard();
+            f.repaint();
+        }
         makeMove(alphaBeta(globalDepth, 1000000, -1000000, "", 0));
         makeMove("7655 ");
         undoMove("7655 ");
