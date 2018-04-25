@@ -84,12 +84,13 @@ public class GUI extends JPanel implements MouseListener, MouseMotionListener {
                 g.drawImage(chessPiecesImage, (i % 8) * squareSize, (i / 8) * squareSize, (i % 8 + 1) * squareSize, (i / 8 + 1) * squareSize, j * 64, k * 64, (j + 1) * 64, (k + 1) * 64, this);
             }
         }
-        /*g.setColor(Color.BLUE);
+        /*
+        g.setColor(Color.BLUE);
         g.fillRect(x-20, y-20, 40, 40);
         g.setColor(new Color(190,81,215));
         g.fillRect(40, 20, 80, 50);
-        g.drawString("Jonathan", x, y);
-         */
+        g.drawString("", x, y);
+        */
     }
 
     @Override
