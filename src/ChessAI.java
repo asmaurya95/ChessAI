@@ -50,13 +50,6 @@ public class ChessAI {
         while (!"a".equals(chessBoard[kingPosL / 8][kingPosL % 8])) {
             kingPosL++;
         }
-        /*BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("Enter your name: ");
-        String name = reader.readLine();
-        System.out.println("Choose White/Black");
-        System.out.print("Enter X for White or Y for Black: ");
-        user = reader.readLine();*/
-        user = "Y";
         /*GUI ui = new GUI();
         JFrame f = new JFrame("ChessAI");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -141,10 +134,10 @@ public class ChessAI {
     }
 
     public static void makeMove(String move) {
-        if (move.charAt(4) != Pawn.pawn().charAt(0)) {
+        if (move.charAt(4) != 'P') {
             chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))] = chessBoard[Character.getNumericValue(move.charAt(0))][Character.getNumericValue(move.charAt(1))];
             chessBoard[Character.getNumericValue(move.charAt(0))][Character.getNumericValue(move.charAt(1))] = " ";
-            if (King.king().equals(chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))])) {
+            if ("K".equals(chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))])) {
                 kingPosC = 8 * Character.getNumericValue(move.charAt(2)) + Character.getNumericValue(move.charAt(3));
             }
         } else {
@@ -155,15 +148,15 @@ public class ChessAI {
     }
 
     public static void undoMove(String move) {
-        if (move.charAt(4) != Pawn.pawn().charAt(0)) {
+        if (move.charAt(4) != 'P') {
             chessBoard[Character.getNumericValue(move.charAt(0))][Character.getNumericValue(move.charAt(1))] = chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))];
             chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))] = String.valueOf(move.charAt(4));
-            if (King.king().equals(chessBoard[Character.getNumericValue(move.charAt(0))][Character.getNumericValue(move.charAt(1))])) {
+            if ("A".equals(chessBoard[Character.getNumericValue(move.charAt(0))][Character.getNumericValue(move.charAt(1))])) {
                 kingPosC = 8 * Character.getNumericValue(move.charAt(0)) + Character.getNumericValue(move.charAt(1));
             }
         } else {
             //if pawn promotion
-            chessBoard[1][Character.getNumericValue(move.charAt(0))] = Pawn.pawn();
+            chessBoard[1][Character.getNumericValue(move.charAt(0))] = "P";
             chessBoard[0][Character.getNumericValue(move.charAt(1))] = String.valueOf(move.charAt(2));
         }
     }
@@ -179,38 +172,29 @@ public class ChessAI {
      */
     public static String possibleMoves() {
         String move = "";
-        String myPawn = Pawn.pawn(), myRook = Rook.rook(), myKnight = Knight.knight(), myBishop = Bishop.bishop(),
-                myQueen = Queen.queen(), myKing = King.king();
         for (int i = 0; i < 64; i++) {
             String currentPiece = chessBoard[i / 8][i % 8];
-            if (currentPiece.equals(myPawn)) {
-                move += Pawn.possibleMovesPawn(i);
-            }
-            if (currentPiece.equals(myRook)) {
-                move += Rook.possibleMovesRook(i);
-            }
-            if (currentPiece.equals(myKnight)) {
-                move += Knight.possibleMovesKnight(i);
-            }
-            if (currentPiece.equals(myBishop)) {
-                move += Bishop.possibleMovesBishop(i);
-            }
-            if (currentPiece.equals(myQueen)) {
-                move += Queen.possibleMovesQueen(i);
-            }
-            if (currentPiece.equals(myKing)) {
-                move += King.possibleMovesKing(i);
+            switch (currentPiece) {
+                case "P":
+                    move += Pawn.possibleMovesPawn(i);
+                    break;
+                case "Q":
+                    move += Queen.possibleMovesQueen(i);
+                    break;
+                case "A":
+                    move += King.possibleMovesKing(i);
+                    break;
+                case "B":
+                    move += Bishop.possibleMovesBishop(i);
+                    break;
+                case "K":
+                    move += Knight.possibleMovesKnight(i);
+                    break;
+                case "R":
+                    move += Rook.possibleMovesRook(i);
+                    break;
             }
         }
         return move;
-    }
-
-    public static boolean isOpponent(char piece) {
-        if ((user.equals("X") && Character.isUpperCase(piece))
-                || (user.equals("Y") && Character.isLowerCase(piece))) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }
