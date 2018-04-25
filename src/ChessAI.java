@@ -40,8 +40,9 @@ public class ChessAI {
         {" ", " ", " ", " ", " ", " ", " ", " "},
         {"P", "P", "P", "P", "P", "P", "P", "P"},
         {"R", "K", "B", "Q", "A", "B", "K", "R"}};
-    
+
     static int humanasWhite = -1;//1= Human as White 0=Black 
+
     public static void main(String[] args) throws IOException {
         // first get white king's location
         while (!"A".equals(chessBoard[kingPosC / 8][kingPosC % 8])) {
@@ -58,15 +59,14 @@ public class ChessAI {
         f.setSize(500, 500);
         f.setVisible(true);
         System.out.println(possibleMoves());
-        Object[] option = {"Computer", "Human"};
-        humanasWhite = JOptionPane.showOptionDialog(null, "Who should play as White?", "ABC options", JOptionPane.YES_NO_OPTION,
+        Object[] option = {"NO", "YES!"};
+        humanasWhite = JOptionPane.showOptionDialog(null, "Do you want to make the first move?", "ABC options", JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, option, option[1]);
         if (humanasWhite == 0) {
             makeMove(alphaBeta(globalDepth, 1000000, -1000000, "", 0));
             flipBoard();
             f.repaint();
         }
-        makeMove(alphaBeta(globalDepth, 1000000, -1000000, "", 0));
         makeMove("7655 ");
         undoMove("7655 ");
         for (int i = 0; i < 8; i++) {
