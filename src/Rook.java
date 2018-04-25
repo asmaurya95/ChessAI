@@ -5,7 +5,6 @@
  */
 public class Rook {
 
-
     public static String possibleMovesRook(int i) {
         String list = "", oldPiece;
         int r = i / 8, c = i % 8;
