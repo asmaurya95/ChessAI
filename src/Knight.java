@@ -1,11 +1,9 @@
 
-
 /**
  *
  * @author ashutosh
  */
 public class Knight {
-
 
     public static String possibleMovesKnight(int i) {
         String list = "", oldPiece;
