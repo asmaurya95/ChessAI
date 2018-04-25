@@ -5,7 +5,6 @@
  */
 public class Pawn {
 
-
     public static String possibleMovesPawn(int i) {
         String list = "", oldPiece;
         int r = i / 8, c = i % 8;
