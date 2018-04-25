@@ -5,13 +5,6 @@
  */
 public class Rook {
 
-    public static String rook() {
-        if (ChessAI.user.equals("X")) {
-            return "r";
-        } else {
-            return "R";
-        }
-    }
 
     public static String possibleMovesRook(int i) {
         String list = "", oldPiece;
@@ -22,22 +15,22 @@ public class Rook {
                 while (" ".equals(ChessAI.chessBoard[r][c + temp * j])) {
                     oldPiece = ChessAI.chessBoard[r][c + temp * j];
                     ChessAI.chessBoard[r][c] = " ";
-                    ChessAI.chessBoard[r][c + temp * j] = rook();
+                    ChessAI.chessBoard[r][c + temp * j] = "R";
                     if (King.isKingSafe()) {
                         list = list + r + c + (r) + (c + temp * j) + oldPiece;
                     }
-                    ChessAI.chessBoard[r][c] = rook();
+                    ChessAI.chessBoard[r][c] = "R";
                     ChessAI.chessBoard[r][c + temp * j] = oldPiece;
                     temp++;
                 }
-                if (ChessAI.isOpponent(ChessAI.chessBoard[r][c + temp * j].charAt(0))) {
+                if (Character.isLowerCase(ChessAI.chessBoard[r][c + temp * j].charAt(0))) {
                     oldPiece = ChessAI.chessBoard[r][c + temp * j];
                     ChessAI.chessBoard[r][c] = " ";
-                    ChessAI.chessBoard[r][c + temp * j] = rook();
+                    ChessAI.chessBoard[r][c + temp * j] = "R";
                     if (King.isKingSafe()) {
                         list = list + r + c + (r) + (c + temp * j) + oldPiece;
                     }
-                    ChessAI.chessBoard[r][c] = rook();
+                    ChessAI.chessBoard[r][c] = "R";
                     ChessAI.chessBoard[r][c + temp * j] = oldPiece;
 
                 }
@@ -49,22 +42,22 @@ public class Rook {
                 while (" ".equals(ChessAI.chessBoard[r + temp * j][c])) {
                     oldPiece = ChessAI.chessBoard[r + temp * j][c];
                     ChessAI.chessBoard[r][c] = " ";
-                    ChessAI.chessBoard[r + temp * j][c] = rook();
+                    ChessAI.chessBoard[r + temp * j][c] = "R";
                     if (King.isKingSafe()) {
                         list = list + r + c + (r + temp * j) + (c) + oldPiece;
                     }
-                    ChessAI.chessBoard[r][c] = rook();
+                    ChessAI.chessBoard[r][c] = "R";
                     ChessAI.chessBoard[r + temp * j][c] = oldPiece;
                     temp++;
                 }
-                if (ChessAI.isOpponent(ChessAI.chessBoard[r + temp * j][c].charAt(0))) {
+                if (Character.isLowerCase(ChessAI.chessBoard[r + temp * j][c].charAt(0))) {
                     oldPiece = ChessAI.chessBoard[r + temp * j][c];
                     ChessAI.chessBoard[r][c] = " ";
-                    ChessAI.chessBoard[r + temp * j][c] = rook();
+                    ChessAI.chessBoard[r + temp * j][c] = "R";
                     if (King.isKingSafe()) {
                         list = list + r + c + (r + temp * j) + (c) + oldPiece;
                     }
-                    ChessAI.chessBoard[r][c] = rook();
+                    ChessAI.chessBoard[r][c] = "R";
                     ChessAI.chessBoard[r + temp * j][c] = oldPiece;
 
                 }
@@ -76,11 +69,4 @@ public class Rook {
         return list;
     }
 
-    public static String opponentRook() {
-        if (ChessAI.user.equals("X")) {
-            return "R";
-        } else {
-            return "r";
-        }
-    }
 }
