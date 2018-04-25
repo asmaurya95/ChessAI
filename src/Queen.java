@@ -5,13 +5,6 @@
  */
 public class Queen {
 
-    public static String queen() {
-        if (ChessAI.user.equals("X")) {
-            return "q";
-        } else {
-            return "Q";
-        }
-    }
 
     public static String possibleMovesQueen(int i) {
         String list = "", oldPiece;
@@ -24,22 +17,22 @@ public class Queen {
                         while (" ".equals(ChessAI.chessBoard[r + temp * j][c + temp * k])) {
                             oldPiece = ChessAI.chessBoard[r + temp * j][c + temp * k];
                             ChessAI.chessBoard[r][c] = " ";
-                            ChessAI.chessBoard[r + temp * j][c + temp * k] = queen();
+                            ChessAI.chessBoard[r + temp * j][c + temp * k] = "Q";
                             if (King.isKingSafe()) {
                                 list = list + r + c + (r + temp * j) + (c + temp * k) + oldPiece;
                             }
-                            ChessAI.chessBoard[r][c] = queen();
+                            ChessAI.chessBoard[r][c] = "Q";
                             ChessAI.chessBoard[r + temp * j][c + temp * k] = oldPiece;
                             temp++;
                         }
-                        if (ChessAI.isOpponent(ChessAI.chessBoard[r + temp * j][c + temp * k].charAt(0))) {
+                        if (Character.isLowerCase(ChessAI.chessBoard[r + temp * j][c + temp * k].charAt(0))) {
                             oldPiece = ChessAI.chessBoard[r + temp * j][c + temp * k];
                             ChessAI.chessBoard[r][c] = " ";
-                            ChessAI.chessBoard[r + temp * j][c + temp * k] = queen();
+                            ChessAI.chessBoard[r + temp * j][c + temp * k] = "Q";
                             if (King.isKingSafe()) {
                                 list = list + r + c + (r + temp * j) + (c + temp * k) + oldPiece;
                             }
-                            ChessAI.chessBoard[r][c] = queen();
+                            ChessAI.chessBoard[r][c] = "Q";
                             ChessAI.chessBoard[r + temp * j][c + temp * k] = oldPiece;
 
                         }
@@ -52,11 +45,5 @@ public class Queen {
         return list;
     }
 
-    public static String opponentQueen() {
-        if (ChessAI.user.equals("X")) {
-            return "Q";
-        } else {
-            return "q";
-        }
-    }
+
 }
