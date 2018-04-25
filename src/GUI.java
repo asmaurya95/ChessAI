@@ -10,7 +10,7 @@ import java.net.URL;
 
 public class GUI extends JPanel implements MouseListener, MouseMotionListener {
 
-    static int x = 0, y = 0;
+    static int x = 0, y = 0, newx = 0, newy = 0;
     static int squareSize = 50;
 
     @Override
@@ -90,54 +90,51 @@ public class GUI extends JPanel implements MouseListener, MouseMotionListener {
         g.setColor(new Color(190,81,215));
         g.fillRect(40, 20, 80, 50);
         g.drawString("", x, y);
-        */
+         */
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
         x = e.getX();
         y = e.getY();
         repaint();
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
     public void mouseReleased(MouseEvent e) {
-        if (e.getX()<8*squareSize &&e.getY()<8*squareSize) {
+        if (e.getX() < 8 * squareSize && e.getY() < 8 * squareSize) {
             //if inside the board
-            x=e.getX();
-            y=e.getY();
-            if (e.getButton()==MouseEvent.BUTTON1) {
+            newx = e.getX();
+            newy = e.getY();
+            if (e.getButton() == MouseEvent.BUTTON1) {
                 String dragMove;
-                if (y/squareSize==0 && y/squareSize==1 && "P".equals(ChessAI.chessBoard[mouseY/squareSize][mouseX/squareSize])) {
+                if (newy / squareSize == 0 && y / squareSize == 1 && "P".equals(ChessAI.chessBoard[y / squareSize][x / squareSize])) {
                     //pawn promotion
-                    dragMove=""+x/squareSize+x/squareSize+ChessAI.chessBoard[newMouseY/squareSize][newMouseX/squareSize]+"QP";
+                    dragMove = "" + x / squareSize + newx / squareSize + ChessAI.chessBoard[newy / squareSize][newx / squareSize] + "QP";
                 } else {
                     //regular move
-                    dragMove=""+y/squareSize+x/squareSize+y/squareSize+x/squareSize+ChessAI.chessBoard[newMouseY/squareSize][newMouseX/squareSize];
+                    dragMove = "" + y / squareSize + x / squareSize + newy / squareSize + newx / squareSize + ChessAI.chessBoard[newy / squareSize][newx / squareSize];
                 }
-                String userPosibilities=ChessAI.possibleMoves();
-                if (userPosibilities.replaceAll(dragMove, "").length()<userPosibilities.length()) {
+                String userPosibilities = ChessAI.possibleMoves();
+                if (userPosibilities.replaceAll(dragMove, "").length() < userPosibilities.length()) {
                     //if valid move
                     ChessAI.makeMove(dragMove);
                     ChessAI.flipBoard();
-                    ChessAI.makeMove(ChessAI.alphaBeta(ChessAI.globalDepth,1000000 ,-1000000,"", 0));
+                    ChessAI.makeMove(ChessAI.alphaBeta(ChessAI.globalDepth, 1000000, -1000000, "", 0));
                     ChessAI.flipBoard();
                     repaint();
                 }
             }
-            
+
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        x = e.getX();
-        y = e.getY();
-        repaint();
     }
 
     @Override
