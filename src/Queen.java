@@ -5,7 +5,6 @@
  */
 public class Queen {
 
-
     public static String possibleMovesQueen(int i) {
         String list = "", oldPiece;
         int r = i / 8, c = i % 8;
@@ -44,6 +43,5 @@ public class Queen {
         }
         return list;
     }
-
 
 }
