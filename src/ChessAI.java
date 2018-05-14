@@ -60,7 +60,7 @@ public class ChessAI {
         f.setVisible(true);
         System.out.println(possibleMoves());
         Object[] option = {"NO", "YES!"};
-        humanasWhite = JOptionPane.showOptionDialog(null, "Do you want to make the first move?", "ABC options", JOptionPane.YES_NO_OPTION,
+        humanasWhite = JOptionPane.showOptionDialog(null, "Do you want to make the first move?", "Starting the game....", JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, option, option[1]);
         if (humanasWhite == 0) {
             makeMove(alphaBeta(globalDepth, 1000000, -1000000, "", 0));
@@ -74,17 +74,14 @@ public class ChessAI {
         }
     }
 
-    public static int rating() {
-        return 0;
-    }
-
     public static String alphaBeta(int depth, int beta, int alpha, String move, int player) {
         //return in the form of 1234b##########
         String list = possibleMoves();
         if (depth == 0 || list.length() == 0) {
-            return move + (rating() * (player * 2 - 1));
+            return move + (Rating.rating(list.length(), depth) * (player * 2 - 1));
         }
-        //sort later
+        //sort the moves
+        list = sortMoves(list);
         player = 1 - player;//either 1 or 0
         for (int i = 0; i < list.length(); i += 5) {
             makeMove(list.substring(i, i + 5));
@@ -146,7 +143,7 @@ public class ChessAI {
         if (move.charAt(4) != 'P') {
             chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))] = chessBoard[Character.getNumericValue(move.charAt(0))][Character.getNumericValue(move.charAt(1))];
             chessBoard[Character.getNumericValue(move.charAt(0))][Character.getNumericValue(move.charAt(1))] = " ";
-            if ("K".equals(chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))])) {
+            if ("A".equals(chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))])) {
                 kingPosC = 8 * Character.getNumericValue(move.charAt(2)) + Character.getNumericValue(move.charAt(3));
             }
         } else {
@@ -205,5 +202,29 @@ public class ChessAI {
             }
         }
         return move;
+    }
+
+    // Sorting the Moves 
+    public static String sortMoves(String list) {
+        int[] score = new int[list.length() / 5];
+        for (int i = 0; i < list.length(); i += 5) {
+            makeMove(list.substring(i, i + 5));
+            score[i / 5] = -Rating.rating(-1, 0);
+            undoMove(list.substring(i, i + 5));
+        }
+        String newListA = "", newListB = list;
+        for (int i = 0; i < Math.min(6, list.length() / 5); i++) {//first few moves only
+            int max = -1000000, maxLocation = 0;
+            for (int j = 0; j < list.length() / 5; j++) {
+                if (score[j] > max) {
+                    max = score[j];
+                    maxLocation = j;
+                }
+            }
+            score[maxLocation] = -1000000;
+            newListA += list.substring(maxLocation * 5, maxLocation * 5 + 5);
+            newListB = newListB.replace(list.substring(maxLocation * 5, maxLocation * 5 + 5), "");
+        }
+        return newListA + newListB;
     }
 }
