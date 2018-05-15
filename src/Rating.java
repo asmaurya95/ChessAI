@@ -175,7 +175,7 @@ public class Rating {
     public static int rateMoveability(int listlength, int depth, int material) {
         int counter = 0;
         counter += listlength; // 5 pointers per valid move
-        if (listlength == 0) {  // side is in checkmate(king can't move because of check) or stallmate (king can't mate but no check)
+        if (listlength == 0) {  // side is in checkmate(king can't move because of check) or stallmate (king can't move but no check)
             if (!King.isKingSafe()) {   //if checkmate
                 counter += -200000 * depth;
             } else {
