@@ -4,7 +4,7 @@
  * @author ashutosh maurya
  * @author aman verma
  */
-import javax.swing.*;       //Java Swing Library
+import javax.swing.*;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Arrays;
@@ -42,8 +42,13 @@ public class ChessAI {
         {"R", "K", "B", "Q", "A", "B", "K", "R"}};
 
     static int humanasWhite = -1;//1= Human as White 0=Black 
+    static String playerName;    
 
     public static void main(String[] args) throws IOException {
+        // Prepare the Database
+        Database.createDatabase();
+        Database.createTable();
+        
         // first get white king's location
         while (!"A".equals(chessBoard[kingPosC / 8][kingPosC % 8])) {
             kingPosC++;
@@ -52,6 +57,7 @@ public class ChessAI {
         while (!"a".equals(chessBoard[kingPosL / 8][kingPosL % 8])) {
             kingPosL++;
         }
+        playerName = JOptionPane.showInputDialog(null, "Enter your name :");
         GUI ui = new GUI();
         JFrame f = new JFrame("ChessAI");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
