@@ -60,7 +60,7 @@ public class ChessAI {
         f.setVisible(true);
         System.out.println(possibleMoves());
         Object[] option = {"NO", "YES"};
-        humanasWhite = JOptionPane.showOptionDialog(null, "Do you want to make the first move?", "Starting the game....", JOptionPane.YES_NO_OPTION,
+        humanasWhite = JOptionPane.showOptionDialog(null, "Would you like to make the first move?", "Starting the game....", JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, option, option[1]);
         System.out.println(humanasWhite);
         if (humanasWhite == 0) {
@@ -73,7 +73,7 @@ public class ChessAI {
         for (int i = 0; i < 8; i++) {
             System.out.println(Arrays.toString(chessBoard[i]));
         }
-        */
+         */
     }
 
     public static String alphaBeta(int depth, int beta, int alpha, String move, int player) {
