@@ -124,9 +124,23 @@ public class GUI extends JPanel implements MouseListener, MouseMotionListener {
                     //if valid move
                     ChessAI.makeMove(dragMove);
                     ChessAI.flipBoard();
+                    String l = ChessAI.possibleMoves();
+                    if (l.length() == 0 && !King.isKingSafe()) {
+                        //System.out.println("Human Won!");
+                        String message = "Human Player has won !";
+                        JOptionPane.showMessageDialog(null, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
+                        System.exit(0);
+                    }
                     ChessAI.makeMove(ChessAI.alphaBeta(ChessAI.globalDepth, 1000000, -1000000, "", 0));
                     ChessAI.flipBoard();
                     repaint();
+                    l = ChessAI.possibleMoves();
+                    if (l.length() == 0 && !King.isKingSafe()) {
+                        //System.out.println("Computer Won!");
+                        String message = "Checkmate. Computer has won!";
+                        JOptionPane.showMessageDialog(null, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
+                        System.exit(0);
+                    }
                 }
             }
 
