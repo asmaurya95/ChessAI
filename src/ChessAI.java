@@ -59,7 +59,7 @@ public class ChessAI {
         f.setSize(500, 500);
         f.setVisible(true);
         System.out.println(possibleMoves());
-        Object[] option = {"NO", "YES!"};
+        Object[] option = {"NO", "YES"};
         humanasWhite = JOptionPane.showOptionDialog(null, "Do you want to make the first move?", "Starting the game....", JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, option, option[1]);
         System.out.println(humanasWhite);
