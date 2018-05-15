@@ -129,6 +129,7 @@ public class GUI extends JPanel implements MouseListener, MouseMotionListener {
                         //System.out.println("Human Won!");
                         String message = "Human Player has won !";
                         JOptionPane.showMessageDialog(null, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
+                        Database.insert(ChessAI.playerName, ChessAI.playerName);
                         System.exit(0);
                     }
                     ChessAI.makeMove(ChessAI.alphaBeta(ChessAI.globalDepth, 1000000, -1000000, "", 0));
@@ -139,6 +140,7 @@ public class GUI extends JPanel implements MouseListener, MouseMotionListener {
                         //System.out.println("Computer Won!");
                         String message = "Checkmate. Computer has won!";
                         JOptionPane.showMessageDialog(null, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
+                        Database.insert(ChessAI.playerName, "Computer");
                         System.exit(0);
                     }
                 }
