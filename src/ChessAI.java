@@ -23,7 +23,7 @@ public class ChessAI {
     a/A : King 
     p/P : Pawn
     
-    Idea : Bitboard can be used to implement the chess board, 
+    Future Task : Bitboard can be used to implement the chess board, 
     which is much faster than a 2-D array
      */
     static int kingPosL, kingPosC;
