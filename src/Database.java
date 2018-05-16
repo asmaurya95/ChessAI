@@ -6,11 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author ashutosh
@@ -51,6 +46,7 @@ public class Database {
     }
 
     public static void insert(String name, String result) {
+        // SQL statement for inserting data into the SQLite Database
         sql = "INSERT INTO games(playername,winner) VALUES(?,?)";
         try {
             pstmt = conn.prepareStatement(sql);
