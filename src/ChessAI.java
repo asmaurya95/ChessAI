@@ -6,8 +6,6 @@
  */
 import javax.swing.*;
 import java.io.IOException;
-import java.util.Scanner;
-import java.util.Arrays;
 
 public class ChessAI {
 
@@ -42,13 +40,13 @@ public class ChessAI {
         {"R", "K", "B", "Q", "A", "B", "K", "R"}};
 
     static int humanasWhite = -1;//1= Human as White 0=Black 
-    static String playerName;    
+    static String playerName;
 
     public static void main(String[] args) throws IOException {
         // Prepare the Database
         Database.createDatabase();
         Database.createTable();
-        
+
         // first get white king's location
         while (!"A".equals(chessBoard[kingPosC / 8][kingPosC % 8])) {
             kingPosC++;
